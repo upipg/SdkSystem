@@ -26,7 +26,7 @@
         android:gravity="center"
         android:layout_height="wrap_content">
 
-    <pl.droidsonroids.gif.GifImageView
+    <ImageView
         android:id="@+id/correct"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -34,7 +34,7 @@
         android:src="@drawable/tick" />
 
 
-    <pl.droidsonroids.gif.GifImageView
+    <ImageView
         android:id="@+id/wrong"
         android:layout_width="match_parent"
         android:layout_height="100dp"

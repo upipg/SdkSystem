@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,11 +14,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import pl.droidsonroids.gif.GifImageView;
 
 public class CompleteTransaction extends AppCompatActivity {
     int flag;
-    GifImageView correct,wrong;
+    ImageView correct,wrong;
     TextView txn_id,amount,merchant_name,brand_name,mobile,response,date,desc;
     String Transaction_id,strAmount,strmerchnat_name,strbrandname,strdate,strmobile;
     Button done;
