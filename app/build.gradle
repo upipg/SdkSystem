@@ -9,10 +9,10 @@ android {
     compileSdk 34
 
     defaultConfig {
-        minSdk 17
+        minSdk 16
         targetSdk 34
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -55,7 +55,7 @@ afterEvaluate {
                 //   from components.release
                 groupId = 'com.github.varshantatray'
                 artifactId = 'payment-SDK'
-                version = '1.0.0'
+                version = '1.0.4'
                 artifact(bundleReleaseAar)
             }
         }
