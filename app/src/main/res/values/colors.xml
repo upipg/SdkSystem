@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="Black">#000</color>
+
+    <color name="icon1">#ec5665</color>
+    <color name="icon2">#c12740</color>
+    <color name="icon3">#4b87c6</color>
+    <color name="icon4">#4b69b2</color>
+    <color name="icon5">#4fc3c6</color>
+    <color name="icon6">#7fc99f</color>
+
+    <color name="grey_dark_secondary">#5d6263</color>
+    <color name="grey">#ff404547</color>
+    <color name="grey_dark">#ff404547</color>
+</resources>

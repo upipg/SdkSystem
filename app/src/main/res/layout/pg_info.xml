@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User &amp; Payment Information"
+        android:textStyle="bold"
+        android:background="@drawable/gradiant"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:textSize="30dp"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Varshant Atary"
+        android:textStyle="bold"
+        android:background="#E8ECF4"
+        android:id="@+id/merchant_name"
+        android:textSize="30dp"
+        android:textColor="@color/grey"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E8ECF4"
+            android:gravity="left|center"
+            android:inputType="textEmailAddress"
+            android:hint="Brand Name"
+            android:id="@+id/brand_name"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:padding="15dp"
+            android:textColor="@color/grey"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="16sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2"
+
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E8ECF4"
+            android:gravity="left|center"
+android:autoText="false"
+            android:inputType="textEmailAddress"
+            android:hint="Amount"
+            android:layout_weight="1"
+            android:padding="15dp"
+            android:textColor="@color/grey"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="left|center"
+            android:textStyle="bold"
+            android:inputType="textEmailAddress"
+            android:autoText="false"
+
+            android:hint="00"
+            android:id="@+id/txtUserAmount"
+            android:layout_weight="1"
+            android:padding="15dp"
+            android:textColor="@color/grey"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E8ECF4"
+            android:gravity="left|center"
+            android:hint="Mobile Number"
+            android:layout_weight="1"
+            android:autoText="false"
+
+            android:padding="15dp"
+            android:textColor="@color/grey"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="16sp" />
+
+ <EditText
+            android:id="@+id/txtUserMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+     android:layout_weight="1"
+     android:autoText="false"
+            android:hint="Enter Mobile Number"
+            android:padding="15dp"
+     android:inputType="number"
+     android:maxLength="10"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center"
+        android:textStyle="bold"
+
+        android:text="Note : \n\nWe collect limited information to enhance your experience. by continuing you agree to our data collection policy."
+        android:padding="15dp"
+        android:textColor="@color/grey"
+        android:textColorHint="@color/grey_dark"
+        android:textSize="16sp" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Proceed"
+        android:background="@drawable/round_oval"
+        android:id="@+id/proceed"
+        android:backgroundTint="@color/icon6"
+        android:layout_margin="10dp"/>
+
+
+    </LinearLayout>

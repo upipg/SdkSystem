@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:visibility="gone"
+        android:layout_margin="10dp"
+        android:src="@drawable/logo"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Varshant Atary"
+        android:textStyle="bold"
+        android:background="#E8ECF4"
+        android:id="@+id/merchant_name"
+        android:textSize="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:id="@+id/PGLayout"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:background="@drawable/payment_method_background"
+                android:layout_marginBottom="16dp">
+
+                <!-- Credit Card Icon -->
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/creditcrd"
+                    android:layout_centerVertical="true" />
+
+                <!-- Credit Card Text -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Credit Card | Debit Card | Net Banking"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"/>
+            </LinearLayout>
+
+
+            <!-- Credit Card Payment Method -->
+            <LinearLayout
+                android:id="@+id/creditCardLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:visibility="gone"
+                android:background="@drawable/payment_method_background"
+                android:layout_marginBottom="16dp">
+
+                <!-- Credit Card Icon -->
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/creditcrd"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/creditCardIcon" />
+
+                <!-- Credit Card Text -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Credit Card"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"/>
+            </LinearLayout>
+
+
+            <!-- Debit Card Payment Method -->
+            <LinearLayout
+                android:id="@+id/debitCardLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:visibility="gone"
+                android:background="@drawable/payment_method_background"
+                android:layout_marginBottom="16dp">
+
+                <!-- Credit Card Icon -->
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/atm_card"
+                    android:layout_centerVertical="true" />
+
+                <!-- Credit Card Text -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Debit Card"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"/>
+            </LinearLayout>
+
+
+            <!-- Networking Card Payment Method -->
+            <LinearLayout
+                android:id="@+id/netbanking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:visibility="gone"
+                android:background="@drawable/payment_method_background"
+                android:layout_marginBottom="16dp">
+
+                <!-- Credit Card Icon -->
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/net_bank"
+                    android:layout_centerVertical="true"/>
+
+                <!-- Credit Card Text -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Net Banking"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"/>
+            </LinearLayout>
+
+
+
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#E8ECF4"
+                    android:gravity="left|center"
+                    android:inputType="textEmailAddress"
+                    android:hint="Brand Name"
+                    android:layout_gravity="center"
+
+                    android:textStyle="bold"
+                    android:id="@+id/brand_name"
+                    android:layout_weight="1"
+                    android:padding="15dp"
+                    android:textColor="@color/grey"
+                    android:textColorHint="@color/grey_dark"
+                    android:textSize="16sp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- UPI Payment Method -->
+            <LinearLayout
+                android:id="@+id/paytm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/payment_method_background"
+                android:layout_marginBottom="16dp">
+
+                <!-- Credit Card Icon -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:src="@drawable/paytm_logo"
+                    android:layout_centerVertical="true"/>
+
+                <!-- Credit Card Text -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="PayTm"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"/>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:orientation="horizontal">
+
+
+                <!-- UPI Payment Method -->
+            <LinearLayout
+                android:id="@+id/phonepe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/payment_method_background"
+                android:layout_marginBottom="16dp">
+
+                <!-- Credit Card Icon -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:src="@drawable/phonepe"
+                    android:layout_centerVertical="true"/>
+
+                <!-- Credit Card Text -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="PhonePe"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"/>
+            </LinearLayout>
+
+
+            <!-- UPI Payment Method -->
+            <LinearLayout
+                android:id="@+id/gpay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/payment_method_background"
+                android:layout_marginBottom="16dp">
+
+                <!-- Credit Card Icon -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:src="@drawable/gpay"
+                    android:layout_centerVertical="true"/>
+
+                <!-- Credit Card Text -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gpay"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"/>
+            </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- UPI Payment Method -->
+            <LinearLayout
+                android:id="@+id/otherupi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/payment_method_background"
+                android:layout_marginBottom="16dp">
+
+                <!-- Credit Card Icon -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:src="@drawable/upi"
+                    android:layout_centerVertical="true"/>
+
+                <!-- Credit Card Text -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Other UPI"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"/>
+            </LinearLayout>
+
+
+            <!-- Payment Details Section -->
+            <LinearLayout
+                android:id="@+id/paymentDetailsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_marginTop="16dp">
+
+                <!-- Header Section -->
+                <TextView
+                    android:id="@+id/textViewTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Payment Details"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+
+                <!-- Payment Mode -->
+                <TextView
+                    android:id="@+id/textViewPaymentMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Transaction by Credit Card : " />
+
+                <!-- Payment Amount -->
+                <TextView
+                    android:id="@+id/textViewPaymentAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Payment Amount: ₹ 100.00" />
+
+                <!-- Charges -->
+                <TextView
+                    android:id="@+id/textViewCharges"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+ 1.25% charges" />
+
+                <!-- Charges Amount -->
+                <TextView
+                    android:id="@+id/textViewChargesAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 1.25" />
+
+                <!-- GST -->
+                <TextView
+                    android:id="@+id/textViewGST"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GST: 18% +GST" />
+
+                <!-- GST Amount -->
+                <TextView
+                    android:id="@+id/textViewGSTAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹ 18.00" />
+
+                <!-- Total Amount -->
+                <TextView
+                    android:id="@+id/textViewTotalAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Amount: ₹ 119.25" />
+
+
+                <!-- Payment Button -->
+                <Button
+                    android:id="@+id/buttonPay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pay Now"
+                    android:layout_below="@id/paymentDetailsLayout"
+                    android:layout_marginTop="32dp" />
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notes : "
+                android:textSize="15dp"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Verified"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:textColor="#3FA33F"
+                android:drawableRight="@drawable/tickk"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your Transaction is processed through a secure 2048 bit https internet connection based on secure socket layer technology. For security purposes, your following details have been logged."
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:textColor="@color/icon4"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="IP Address :"
+                android:layout_gravity="left|center"
+                android:gravity="left|center"
+                android:textSize="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/ipaddress"
+                android:textStyle="bold"
+                android:textColor="@color/grey"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Access Time :"
+                android:id="@+id/time"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="left|center"
+                android:gravity="left|center"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:textColor="@color/grey"/>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
