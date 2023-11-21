@@ -67,7 +67,7 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
         txtUserMobile = findViewById(R.id.txtUserMobile);
 
 
-        proceed = findViewById(R.id.proceed);
+        proceed = (AppCompatButton) findViewById(R.id.proceed);
 
 
         Intent i = getIntent();
