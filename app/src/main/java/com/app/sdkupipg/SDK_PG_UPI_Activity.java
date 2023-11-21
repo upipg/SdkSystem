@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -52,7 +53,7 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 1;
     TextView brand_name,merchant_name,txtUserAmount;
     EditText txtUserMobile;
-    Button proceed;
+    AppCompatButton proceed;
     String strmerchant_secret,strmerchnat_ref_id,strAmount,strUpiId,strTransactionId,strNotes,strCurrency,strmerchnat_name,strmerchnat_id,strbrandname,formattedDate;
     ImageView app_logo;
     @Override
