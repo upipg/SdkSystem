@@ -22,4 +22,3 @@
 
 -keep class com.app.sdkupipg.** { *; }
 
--keep class * implements com.app.sdkupipg.ApiClient

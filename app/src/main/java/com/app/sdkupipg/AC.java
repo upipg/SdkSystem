@@ -7,11 +7,11 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ApiClient {
+public class AC {
 
 
 
-    public static Retrofit PG_BASE() {
+    public static Retrofit PB() {
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -23,7 +23,7 @@ public class ApiClient {
 //http://api.rusumitsolutions.com/api/rits/LoginUser
         //https://medijunction.co.in/api/User/RegisterPatient
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://bumppy.in/bumppy_sdk/")
+                .baseUrl(GL.UL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 //.client(client)

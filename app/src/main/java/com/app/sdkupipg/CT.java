@@ -15,7 +15,7 @@ import java.util.Locale;
 
 import pl.droidsonroids.gif.GifImageView;
 
-public class CompleteTransaction extends AppCompatActivity {
+public class CT extends AppCompatActivity {
     int flag;
     GifImageView correct,wrong;
     TextView txn_id,amount,merchant_name,brand_name,mobile,response,date,desc;

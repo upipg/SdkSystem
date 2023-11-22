@@ -34,8 +34,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.app.sdkupipg.UpiPgActivity" />
-        <activity android:name="com.app.sdkupipg.CompleteTransaction" />
+        <activity android:name="com.app.sdkupipg.UPG" />
+        <activity android:name="com.app.sdkupipg.CT" />
     </application>
 
 </manifest>

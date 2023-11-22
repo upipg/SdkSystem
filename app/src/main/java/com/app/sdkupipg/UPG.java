@@ -25,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UpiPgActivity extends AppCompatActivity {
+public class UPG extends AppCompatActivity {
     String oid,strmo;
     private final Gson gson = new Gson();
     private SuccessHandler successHandler;
@@ -129,7 +129,7 @@ public class UpiPgActivity extends AppCompatActivity {
                     startActivityForResult(intent, REQUEST_CODE_PAYTM);
                 } catch (Exception e) {
 
-                    Toast.makeText(UpiPgActivity.this, "PayTm app is not installed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UPG.this, "PayTm app is not installed", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -145,7 +145,6 @@ public class UpiPgActivity extends AppCompatActivity {
     }
 
     void payUsingUpi(String name, String upiId, String note, String amount,String strCurrency) {
-        Log.e("main", "name" + name + "--up--" + "--" + note + "--" + amount);
         Uri uri = Uri.parse("upi://pay").buildUpon()
                 .appendQueryParameter("pa", upiId)
                 .appendQueryParameter("pn", name)
@@ -168,7 +167,6 @@ public class UpiPgActivity extends AppCompatActivity {
     }
 
     void payUsingPhonepeUpi(String name, String upiId, String note, String amount,String strCurrency) {
-        Log.e("main", "name" + name + "--up--" + "--" + note + "--" + amount);
         Uri uri = Uri.parse("upi://pay").buildUpon()
                 .appendQueryParameter("pa", upiId)
                 .appendQueryParameter("pn", name)
@@ -189,7 +187,6 @@ public class UpiPgActivity extends AppCompatActivity {
     }
 
     void payUsingOtherUpi(String name, String upiId, String note, String amount,String strCurrency) {
-        Log.e("main", "name" + name + "--up--" + "--" + note + "--" + amount);
         Uri uri = Uri.parse("upi://pay").buildUpon()
                 .appendQueryParameter("pa", upiId)
                 .appendQueryParameter("pn", name)
@@ -356,15 +353,12 @@ public class UpiPgActivity extends AppCompatActivity {
 
     private void collectData(TransactionResult transactionResult) {
         // Add your data collection logic here
-        Log.d("DataCollection", "Status: " + transactionResult.getStatus() + ", Message: " + transactionResult.getMessage());
 
         String responseString = "txnId=&responseCode=00&ApprovalRefNo=332530&Status=SUCCESS&txnRef=";
         String[] keyValuePairs = responseString.split("&");
 
-// Create a map to store the parsed values
         Map<String, String> responseMap = new HashMap<>();
 
-// Iterate over key-value pairs and populate the map
         for (String pair : keyValuePairs) {
             String[] entry = pair.split("=");
             if (entry.length == 2) {
@@ -372,19 +366,12 @@ public class UpiPgActivity extends AppCompatActivity {
             }
         }
 
-// Accessing individual values
         String responseCode = responseMap.get("responseCode");
         String approvalRefNo = responseMap.get("ApprovalRefNo");
         String status1 = responseMap.get("Status");
         String txnId = responseMap.get("txnId");
         String txnRef = responseMap.get("txnRef");
 
-// Use the extracted values as needed
-        System.out.println("Response Code: " + responseCode);
-        System.out.println("Approval Reference No: " + approvalRefNo);
-        System.out.println("Status: " + status1);
-        System.out.println("Transaction ID: " + txnId);
-        System.out.println("Transaction Reference: " + txnRef);
 
         if (transactionResult.getStatus() == null || transactionResult.getStatus().isEmpty()) {
             Response(status1, transactionResult.getMessage());
@@ -417,10 +404,6 @@ public class UpiPgActivity extends AppCompatActivity {
     }
 
 
-
-
-    //call
-
     private void Response(String MerchantTransactionStatus,String StrResponse){
 
         PG_Response_REQ PG_REQ= new PG_Response_REQ();
@@ -432,8 +415,8 @@ public class UpiPgActivity extends AppCompatActivity {
         PG_REQ.setResponse(StrResponse);
         //set data req
 
-        ApiInterface apiInterface= ApiClient.PG_BASE().create(ApiInterface.class);
-        Call<PG_Response_RES> apicall= apiInterface.Transaction_response(PG_REQ);
+        AI aint= AC.PB().create(AI.class);
+        Call<PG_Response_RES> apicall= aint.Transaction_response(PG_REQ);
         apicall.enqueue(new Callback<PG_Response_RES>() {
             @Override
             public void onResponse(Call<PG_Response_RES> call, Response<PG_Response_RES> response) {
@@ -446,7 +429,7 @@ public class UpiPgActivity extends AppCompatActivity {
 
                             if (response.body().getResponse().getStatus().equals("SUCCESS")){
 
-                                Intent i = new Intent(UpiPgActivity.this, CompleteTransaction.class);
+                                Intent i = new Intent(UPG.this, CT.class);
                                 i.putExtra("txnid", response.body().getResponse().getTxnId());
                                 i.putExtra("ref_t_id", response.body().getResponse().getApprovalRefNo());
                                 i.putExtra("flag", 1);
@@ -458,7 +441,7 @@ public class UpiPgActivity extends AppCompatActivity {
                                 finish();
                             }else{
 
-                                Intent i = new Intent(UpiPgActivity.this, CompleteTransaction.class);
+                                Intent i = new Intent(UPG.this, CT.class);
                                 i.putExtra("txnid", response.body().getResponse().getTxnId());
                                 i.putExtra("flag", 2);
                                 i.putExtra("ref_t_id", response.body().getResponse().getApprovalRefNo());

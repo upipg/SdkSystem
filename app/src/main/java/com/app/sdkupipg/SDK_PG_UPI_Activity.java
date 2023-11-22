@@ -11,9 +11,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,7 +20,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -43,7 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SDK_PG_UPI_Activity extends AppCompatActivity {
-    String strupiid,strtTid,strorderid,stramount;
+    String strtTid,strorderid;
     double latitude;
     double longitude;
     float pecentge = 18;
@@ -51,44 +48,44 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
     String ipAddress, deviceId;
 
     private static final int PERMISSION_REQUEST_CODE = 1;
-    TextView brand_name,merchant_name,txtUserAmount;
-    EditText txtUserMobile;
-    TextView proceed;
-    String strmerchant_secret,strmerchnat_ref_id,strAmount,strUpiId,strTransactionId,strNotes,strCurrency,strmerchnat_name,strmerchnat_id,strbrandname,formattedDate;
+    TextView b_n,merchant_name,txtUserAmount;
+    EditText edit_m;
+    TextView go;
+    String str_m_s,str_m_r_i_d,stramt,struid,str_t_i_d,strNotes,strCurrency,str_m_n,str_m_i_d,str_b_n,formattedDate;
     ImageView app_logo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pg_info);
 
-        brand_name = findViewById(R.id.brand_name);
+        b_n = findViewById(R.id.brand_name);
         merchant_name = findViewById(R.id.merchant_name);
         txtUserAmount = findViewById(R.id.txtUserAmount);
-        txtUserMobile = findViewById(R.id.txtUserMobile);
+        edit_m = findViewById(R.id.txtUserMobile);
 
 
-        proceed = findViewById(R.id.proceed);
+        go = findViewById(R.id.proceed);
 
 
         Intent i = getIntent();
-        strAmount = i.getExtras().getString("trAm");
-        strUpiId = i.getExtras().getString("trUpiId");
-        strTransactionId = i.getExtras().getString("trId");
+        stramt = i.getExtras().getString("trAm");
+        struid = i.getExtras().getString("trUpiId");
+        str_t_i_d = i.getExtras().getString("trId");
         strNotes = i.getExtras().getString("trNotes");
         strCurrency = i.getExtras().getString("trcur");
-        strbrandname = i.getExtras().getString("BRname");
-        strmerchnat_name = i.getExtras().getString("merchant_name");
-        strmerchnat_id = i.getExtras().getString("merchant_id");
-        strmerchnat_ref_id = i.getExtras().getString("merchant_ref_id");
-        strmerchant_secret = i.getExtras().getString("merchant_secret");
+        str_b_n = i.getExtras().getString("BRname");
+        str_m_n = i.getExtras().getString("merchant_name");
+        str_m_i_d = i.getExtras().getString("merchant_id");
+        str_m_r_i_d = i.getExtras().getString("merchant_ref_id");
+        str_m_s = i.getExtras().getString("merchant_secret");
         if (i.getExtras().getString("trOrId") != null) {
             strorderid = i.getExtras().getString("trOrId");
         }
 
 
-        merchant_name.setText(strmerchnat_name);
-        txtUserAmount.setText("₹ "+strAmount);
-        brand_name.setText("Brand Name : "+strbrandname);
+        merchant_name.setText(str_m_n);
+        txtUserAmount.setText("₹ "+stramt);
+        b_n.setText("Brand Name : "+str_b_n);
 
 
 
@@ -114,24 +111,18 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
         // Format the current date as a string in the desired format
          formattedDate = dateFormatter.format(currentDate);
 
-        System.out.println("Current Date: " + formattedDate);
+         
 
 
-
-
-        System.out.println("ipAddress"+ipAddress+"        \n    "+Build.DEVICE+"\n"+Build.USER+"\n"+Build.SERIAL+"\n"+Build.FINGERPRINT);
-
-
-
-        proceed.setOnClickListener(new View.OnClickListener() {
+        go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (txtUserMobile.getText().toString().length()!=10){
-                    txtUserMobile.setError("Enter Mobile Number");
-                    txtUserMobile.setFocusable(true);
+                if (edit_m.getText().toString().length()!=10){
+                    edit_m.setError("Enter Mobile Number");
+                    edit_m.setFocusable(true);
                 }else {
 
-                    PG_Collect();
+                    PGC();
 
 
                 }
@@ -156,7 +147,7 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
                 getLocation();
             } else {
                 // Handle permission denied
-                Log.e("Permission", "Location permission denied");
+finish();
             }
         }
     }
@@ -172,9 +163,8 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
                      latitude = location.getLatitude();
                      longitude = location.getLongitude();
 
-                    Log.d("Location", "Latitude: " + latitude + ", Longitude: " + longitude);
                 } else {
-                    Log.e("Location", "Unable to retrieve location");
+finish();
                 }
             }
         }
@@ -190,8 +180,6 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
                 Enumeration<InetAddress> inetAddresses = networkInterface.getInetAddresses();
                 while (inetAddresses.hasMoreElements()) {
                     InetAddress inetAddress = inetAddresses.nextElement();
-                    System.out.println(inetAddress+" IP Address");
-                    // Check if it's not the loopback address and if it's an IPv4 address
                     if (!inetAddress.isLoopbackAddress() && inetAddress.getAddress().length == 4) {
                         return inetAddress.getHostAddress();
                     }
@@ -203,13 +191,8 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
         return "Unknown";
     }
 
-
-
-
-
-    //call
-
-    private void PG_Collect(){
+    
+    private void PGC(){
         SharedPreferences prefs = SDK_PG_UPI_Activity.this.getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
 
         PG_Collect_REQUEST Collect_REQ= new PG_Collect_REQUEST();
@@ -217,17 +200,17 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
         Collect_REQ.setLatitude(String.valueOf(latitude));
         Collect_REQ.setLongitude(String.valueOf(longitude));
         Collect_REQ.setAppId(Build.FINGERPRINT);
-        Collect_REQ.setMerchantId(strmerchnat_id);
-        Collect_REQ.setMerchantRefId(strTransactionId);
-        Collect_REQ.setMerchantSecret(strmerchant_secret);
-        Collect_REQ.setMerchantTransactionAmount(strAmount);
-        Collect_REQ.setMerchantUserName(strmerchnat_name);
-        Collect_REQ.setMobileNumber(txtUserMobile.getText().toString());
+        Collect_REQ.setMerchantId(str_m_i_d);
+        Collect_REQ.setMerchantRefId(str_t_i_d);
+        Collect_REQ.setMerchantSecret(str_m_s);
+        Collect_REQ.setMerchantTransactionAmount(stramt);
+        Collect_REQ.setMerchantUserName(str_m_n);
+        Collect_REQ.setMobileNumber(edit_m.getText().toString());
 
       //set data req
 
-        ApiInterface apiInterface= ApiClient.PG_BASE().create(ApiInterface.class);
-        Call<PG_Collect_RES> apicall= apiInterface.USER_DATA(Collect_REQ);
+        AI aint= AC.PB().create(AI.class);
+        Call<PG_Collect_RES> apicall= aint.USER_DATA(Collect_REQ);
         apicall.enqueue(new Callback<PG_Collect_RES>() {
             @Override
             public void onResponse(Call<PG_Collect_RES> call, Response<PG_Collect_RES> response) {
@@ -237,19 +220,19 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
 
                     if (response.body().getStatus().equals("00")) {
 
-                        Intent i = new Intent(SDK_PG_UPI_Activity.this,UpiPgActivity.class);
-                        i.putExtra("trAm",strAmount);
-                        i.putExtra("trUpiId",strUpiId);
-                        i.putExtra("trId",strTransactionId);
+                        Intent i = new Intent(SDK_PG_UPI_Activity.this, UPG.class);
+                        i.putExtra("trAm",stramt);
+                        i.putExtra("trUpiId",struid);
+                        i.putExtra("trId",str_t_i_d);
                         i.putExtra("trNotes",strNotes);
                         i.putExtra("trcur",strCurrency);
                         i.putExtra("trOrId",strorderid);
-                        i.putExtra("BRname",strbrandname);
-                        i.putExtra("merchant_name",strmerchnat_name);
-                        i.putExtra("merchant_id",strmerchnat_id);
-                        i.putExtra("merchant_secret",strmerchant_secret);
-                        i.putExtra("merchnat_ref_id",strTransactionId);
-                        i.putExtra("mobile",txtUserMobile.getText().toString());
+                        i.putExtra("BRname",str_b_n);
+                        i.putExtra("merchant_name",str_m_n);
+                        i.putExtra("merchant_id",str_m_i_d);
+                        i.putExtra("merchant_secret",str_m_s);
+                        i.putExtra("merchnat_ref_id",str_t_i_d);
+                        i.putExtra("mobile",edit_m.getText().toString());
                         i.putExtra("ip_address",ipAddress);
                         i.putExtra("date_time",formattedDate);
                         startActivity(i);

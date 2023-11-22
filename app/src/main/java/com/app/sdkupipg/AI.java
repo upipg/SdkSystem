@@ -10,7 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-public interface ApiInterface {
+public interface AI {
 
     @POST("initiateTransactionSDK.php")
     Call<PG_Collect_RES> USER_DATA(@Body PG_Collect_REQUEST mpin_req);
