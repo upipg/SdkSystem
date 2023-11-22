@@ -171,13 +171,17 @@ android:autoText="false"
         android:textColor="@color/grey"
         android:textColorHint="@color/grey_dark"
         android:textSize="16sp" />
-    <androidx.appcompat.widget.AppCompatButton
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Proceed"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:padding="12dp"
         android:background="@drawable/round_oval"
         android:id="@+id/proceed"
-        android:backgroundTint="@color/icon6"
+        android:backgroundTint="@color/icon4"
         android:layout_margin="10dp"/>
 
 

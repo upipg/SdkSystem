@@ -53,7 +53,7 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 1;
     TextView brand_name,merchant_name,txtUserAmount;
     EditText txtUserMobile;
-    AppCompatButton proceed;
+    TextView proceed;
     String strmerchant_secret,strmerchnat_ref_id,strAmount,strUpiId,strTransactionId,strNotes,strCurrency,strmerchnat_name,strmerchnat_id,strbrandname,formattedDate;
     ImageView app_logo;
     @Override
@@ -67,7 +67,7 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
         txtUserMobile = findViewById(R.id.txtUserMobile);
 
 
-        proceed = (AppCompatButton) findViewById(R.id.proceed);
+        proceed = findViewById(R.id.proceed);
 
 
         Intent i = getIntent();
