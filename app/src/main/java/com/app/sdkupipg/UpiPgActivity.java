@@ -11,8 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import com.app.sdkupipg.Models.PG_Response_REQ;
 import com.app.sdkupipg.Models.PG_Response_RES;
 import com.google.gson.Gson;
@@ -28,7 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UpiPgActivity extends AppCompatActivity {
-    String strorderid,strmobile;
+    String oid,strmo;
     private final Gson gson = new Gson();
     private SuccessHandler successHandler;
     private SuccessHandler failureHandler;
@@ -39,9 +37,9 @@ public class UpiPgActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_GOOGLE_PAY = 1001;
     private static final int REQUEST_CODE_UPI_PAYMENT = 0;
     LinearLayout PGLayout;
-    TextView ipaddress,merchant_name,brand_name,time;
+    TextView ip_add,m_n,brand_name,time;
     LinearLayout creditCardLayout,debitCardLayout,netbanking,phonepe,gpay,paytm,otherupi;
-    String strmerchant_secret,strmerchnat_ref_id,strAmount,strUpiId,strTransactionId,strNotes,strCurrency,strmerchnat_name,strmerchnat_id,strbrandname,formattedDate;
+    String strm_s,strm_r_id,strAmount,strUpiId,strTransactionId,strNotes,strCurrency,str_m_n,strmerchnat_id,strbrandname,formattedDate;
     ImageView app_logo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +55,10 @@ public class UpiPgActivity extends AppCompatActivity {
         paytm=findViewById(R.id.paytm);
         otherupi=findViewById(R.id.otherupi);
         app_logo=findViewById(R.id.app_logo);
-        ipaddress = findViewById(R.id.ipaddress);
+        ip_add = findViewById(R.id.ipaddress);
         time = findViewById(R.id.time);
         brand_name = findViewById(R.id.brand_name);
-        merchant_name = findViewById(R.id.merchant_name);
+        m_n = findViewById(R.id.merchant_name);
 
         Intent i = getIntent();
         strAmount = i.getExtras().getString("trAm");
@@ -69,27 +67,27 @@ public class UpiPgActivity extends AppCompatActivity {
         strNotes = i.getExtras().getString("trNotes");
         strCurrency = i.getExtras().getString("trcur");
         strbrandname = i.getExtras().getString("BRname");
-        strmerchnat_name = i.getExtras().getString("merchant_name");
+        str_m_n = i.getExtras().getString("merchant_name");
         strmerchnat_id = i.getExtras().getString("merchant_id");
-        strmobile = i.getExtras().getString("mobile");
+        strmo = i.getExtras().getString("mobile");
 
         if (i.getExtras().getString("merchant_ref_id") != null) {
-            strmerchnat_ref_id = i.getExtras().getString("merchant_ref_id");
+            strm_r_id = i.getExtras().getString("merchant_ref_id");
         }
         if (i.getExtras().getString("merchant_secret") != null) {
-            strmerchant_secret = i.getExtras().getString("merchant_secret");
+            strm_s = i.getExtras().getString("merchant_secret");
         }
         if (i.getExtras().getString("trOrId") != null) {
-            strorderid = i.getExtras().getString("trOrId");
+            oid = i.getExtras().getString("trOrId");
         }
 
 
 
-        ipaddress.setText("IP Address : "+i.getExtras().getString("ip_address"));
+        ip_add.setText("IP Address : "+i.getExtras().getString("ip_address"));
 
         time.setText("Accesss Time : "+ i.getExtras().getString("date_time"));
         brand_name.setText("Brand Name : "+ i.getExtras().getString("BRname"));
-        merchant_name.setText(i.getExtras().getString("merchant_name"));
+        m_n.setText(i.getExtras().getString("merchant_name"));
 
 
         phonepe.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +115,7 @@ public class UpiPgActivity extends AppCompatActivity {
                         .appendQueryParameter("pa", strUpiId.trim()) // Payee VPA (Virtual Payment Address)
                         .appendQueryParameter("pn", strbrandname.trim()) // Payee name
                         .appendQueryParameter("mc", "000000") // Merchant code (optional)
-                        .appendQueryParameter("tr", strorderid) // Transaction ID
+                        .appendQueryParameter("tr", oid) // Transaction ID
                         .appendQueryParameter("tn", strNotes.trim()) // Transaction note
                         .appendQueryParameter("am", strAmount.trim()) // Transaction amount
                         .appendQueryParameter("mode", "04".trim()) // Payment mode (optional)
@@ -428,8 +426,8 @@ public class UpiPgActivity extends AppCompatActivity {
         PG_Response_REQ PG_REQ= new PG_Response_REQ();
         PG_REQ.setMerchantId(strmerchnat_id);
         PG_REQ.setMerchantRefId(strTransactionId);
-        PG_REQ.setMerchantSecret(strmerchant_secret);
-        PG_REQ.setMerchantUserName(strmerchnat_name);
+        PG_REQ.setMerchantSecret(strm_s);
+        PG_REQ.setMerchantUserName(str_m_n);
         PG_REQ.setMerchantTransactionStatus(MerchantTransactionStatus);
         PG_REQ.setResponse(StrResponse);
         //set data req
@@ -453,9 +451,9 @@ public class UpiPgActivity extends AppCompatActivity {
                                 i.putExtra("ref_t_id", response.body().getResponse().getApprovalRefNo());
                                 i.putExtra("flag", 1);
                                 i.putExtra("trAm", strAmount);
-                                i.putExtra("merchant_name", strmerchnat_name);
+                                i.putExtra("merchant_name", str_m_n);
                                 i.putExtra("BRname", strbrandname);
-                                i.putExtra("mobile", strmobile);
+                                i.putExtra("mobile", strmo);
                                 startActivity(i);
                                 finish();
                             }else{
@@ -465,9 +463,9 @@ public class UpiPgActivity extends AppCompatActivity {
                                 i.putExtra("flag", 2);
                                 i.putExtra("ref_t_id", response.body().getResponse().getApprovalRefNo());
                                 i.putExtra("trAm", strAmount);
-                                i.putExtra("merchant_name", strmerchnat_name);
+                                i.putExtra("merchant_name", str_m_n);
                                 i.putExtra("BRname", strbrandname);
-                                i.putExtra("mobile", strmobile);
+                                i.putExtra("mobile", strmo);
                                 startActivity(i);
                                 finish();
                             }
