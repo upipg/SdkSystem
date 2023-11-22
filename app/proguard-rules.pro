@@ -23,6 +23,3 @@
 -keep class com.app.sdkupipg.** { *; }
 
 -keep class * implements com.app.sdkupipg.ApiClient
--keep class * implements com.app.sdkupipg.ApiInterface
--keep class * implements com.app.sdkupipg.SDK_PG_UPI_Activity
--keep class * implements com.app.sdkupipg.UpiPgActivity
