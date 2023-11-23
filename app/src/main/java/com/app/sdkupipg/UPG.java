@@ -427,7 +427,7 @@ public class UPG extends AppCompatActivity {
                     if (response.body().getStatus().equals("00")) {
 
 
-                            if (response.body().getResponse().getStatus().equals("SUCCESS")||response.body().getResponse().getStatus().equals("Success")){
+                            if (response.body().getResponse().getStatus().equals("Success")||response.body().getResponse().getStatus().equals("SUCCESS")){
 
                                 Intent i = new Intent(UPG.this, CT.class);
                                 i.putExtra("txnid", response.body().getResponse().getTxnId());
