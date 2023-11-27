@@ -150,10 +150,10 @@ public class UPG extends AppCompatActivity {
     }
 
     void payUsingUpi(String name, String upiId, String note, String amount,String strCurrency) {
-        paytm.setFocusable(false);
-        gpay.setFocusable(false);
-        phonepe.setFocusable(false);
-        otherupi.setFocusable(false);
+        paytm.setFocusable(true);
+        gpay.setFocusable(true);
+        phonepe.setFocusable(true);
+        otherupi.setFocusable(true);
         Uri uri = Uri.parse("upi://pay").buildUpon()
                 .appendQueryParameter("pa", upiId)
                 .appendQueryParameter("pn", name)
@@ -176,10 +176,10 @@ public class UPG extends AppCompatActivity {
     }
 
     void payUsingPhonepeUpi(String name, String upiId, String note, String amount,String strCurrency) {
-        paytm.setFocusable(false);
-        gpay.setFocusable(false);
-        phonepe.setFocusable(false);
-        otherupi.setFocusable(false);
+        paytm.setFocusable(true);
+        gpay.setFocusable(true);
+        phonepe.setFocusable(true);
+        otherupi.setFocusable(true);
         Uri uri = Uri.parse("upi://pay").buildUpon()
                 .appendQueryParameter("pa", upiId)
                 .appendQueryParameter("pn", name)
@@ -200,10 +200,10 @@ public class UPG extends AppCompatActivity {
     }
 
     void payUsingOtherUpi(String name, String upiId, String note, String amount,String strCurrency) {
-        paytm.setFocusable(false);
-        gpay.setFocusable(false);
-        phonepe.setFocusable(false);
-        otherupi.setFocusable(false);
+        paytm.setFocusable(true);
+        gpay.setFocusable(true);
+        phonepe.setFocusable(true);
+        otherupi.setFocusable(true);
         Uri uri = Uri.parse("upi://pay").buildUpon()
                 .appendQueryParameter("pa", upiId)
                 .appendQueryParameter("pn", name)
