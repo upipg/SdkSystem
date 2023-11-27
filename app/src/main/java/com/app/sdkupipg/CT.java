@@ -20,7 +20,7 @@ public class CT extends AppCompatActivity {
     GifImageView correct,wrong;
     TextView txn_id,amount,merchant_name,brand_name,mobile,response,date,desc;
     String Transaction_id,strAmount,strmerchnat_name,strbrandname,strdate,strmobile;
-    Button done;
+    TextView done;
 
 
     @Override

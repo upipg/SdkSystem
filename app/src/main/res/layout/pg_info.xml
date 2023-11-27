@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
@@ -178,9 +179,10 @@ android:autoText="false"
         android:layout_gravity="center"
         android:gravity="center"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:padding="12dp"
-        android:background="@drawable/view_normal_blue_corner"
+        android:backgroundTint="@color/icon4"
+        android:background="@drawable/round_outline2"
         android:id="@+id/proceed"
         android:textSize="18sp"
         android:layout_margin="10dp"/>
