@@ -10,6 +10,15 @@ public class PG_Response_REQ implements Serializable {
   private String merchantRefId;
 
   private String response;
+  private String provider;
+
+  public String getProvider() {
+    return provider;
+  }
+
+  public void setProvider(String provider) {
+    this.provider = provider;
+  }
 
   private String merchantUserName;
 

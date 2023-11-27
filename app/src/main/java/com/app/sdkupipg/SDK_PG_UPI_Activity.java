@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,7 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
     TextView b_n,merchant_name,txtUserAmount;
     EditText edit_m;
     TextView go;
+    ProgressBar progress;
     String str_m_s,str_m_r_i_d,stramt,struid,str_t_i_d,strNotes,strCurrency,str_m_n,str_m_i_d,str_b_n,formattedDate;
     ImageView app_logo;
     @Override
@@ -62,6 +64,7 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
         merchant_name = findViewById(R.id.merchant_name);
         txtUserAmount = findViewById(R.id.txtUserAmount);
         edit_m = findViewById(R.id.txtUserMobile);
+        progress = findViewById(R.id.progress);
 
 
         go = findViewById(R.id.proceed);
@@ -121,7 +124,8 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
                     edit_m.setError("Enter Mobile Number");
                     edit_m.setFocusable(true);
                 }else {
-
+                    go.setVisibility(View.GONE);
+                    progress.setVisibility(View.VISIBLE);
                     PGC();
 
 
@@ -220,32 +224,59 @@ finish();
 
                     if (response.body().getStatus().equals("00")) {
 
-                        Intent i = new Intent(SDK_PG_UPI_Activity.this, UPG.class);
-                        i.putExtra("trAm",stramt);
-                        i.putExtra("trUpiId",struid);
-                        i.putExtra("trId",str_t_i_d);
-                        i.putExtra("trNotes",strNotes);
-                        i.putExtra("trcur",strCurrency);
-                        i.putExtra("trOrId",strorderid);
-                        i.putExtra("BRname",str_b_n);
-                        i.putExtra("merchant_name",str_m_n);
-                        i.putExtra("merchant_id",str_m_i_d);
-                        i.putExtra("merchant_secret",str_m_s);
-                        i.putExtra("merchnat_ref_id",str_t_i_d);
-                        i.putExtra("mobile",edit_m.getText().toString());
-                        i.putExtra("ip_address",ipAddress);
-                        i.putExtra("date_time",formattedDate);
-                        startActivity(i);
-                        finish();
+                        go.setVisibility(View.VISIBLE);
+                        progress.setVisibility(View.GONE);
+                        if (response.body().getData().getUpiid().equals(struid)){
+
+                            Intent i = new Intent(SDK_PG_UPI_Activity.this, UPG.class);
+                            i.putExtra("trAm",stramt);
+                            i.putExtra("trUpiId",struid);
+                            i.putExtra("trId",str_t_i_d);
+                            i.putExtra("trNotes",strNotes);
+                            i.putExtra("trcur",strCurrency);
+                            i.putExtra("trOrId",strorderid);
+                            i.putExtra("BRname",str_b_n);
+                            i.putExtra("merchant_name",str_m_n);
+                            i.putExtra("merchant_id",str_m_i_d);
+                            i.putExtra("merchant_secret",str_m_s);
+                            i.putExtra("merchnat_ref_id",str_t_i_d);
+                            i.putExtra("mobile",edit_m.getText().toString());
+                            i.putExtra("ip_address",ipAddress);
+                            i.putExtra("date_time",formattedDate);
+                            startActivity(i);
+                            finish();
+                        }else{
+                            Intent i = new Intent(SDK_PG_UPI_Activity.this, UPG.class);
+                            i.putExtra("trAm",stramt);
+                            i.putExtra("trUpiId",response.body().getData().getUpiid());
+                            i.putExtra("trId",str_t_i_d);
+                            i.putExtra("trNotes",strNotes);
+                            i.putExtra("trcur",strCurrency);
+                            i.putExtra("trOrId",strorderid);
+                            i.putExtra("BRname",str_b_n);
+                            i.putExtra("merchant_name",str_m_n);
+                            i.putExtra("merchant_id",str_m_i_d);
+                            i.putExtra("merchant_secret",str_m_s);
+                            i.putExtra("merchnat_ref_id",str_t_i_d);
+                            i.putExtra("mobile",edit_m.getText().toString());
+                            i.putExtra("ip_address",ipAddress);
+                            i.putExtra("date_time",formattedDate);
+                            startActivity(i);
+                            finish();
+                        }
 
 
                     } else {
 
+                        go.setVisibility(View.VISIBLE);
+                        progress.setVisibility(View.GONE);
 
                     }
 
                 }catch (Exception e){
 
+                    go.setVisibility(View.VISIBLE);
+                    progress.setVisibility(View.GONE);
                 }
 
             }

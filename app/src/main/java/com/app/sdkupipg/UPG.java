@@ -41,6 +41,7 @@ public class UPG extends AppCompatActivity {
     LinearLayout creditCardLayout,debitCardLayout,netbanking,phonepe,gpay,paytm,otherupi;
     String strm_s,strm_r_id,strAmount,strUpiId,strTransactionId,strNotes,strCurrency,str_m_n,strmerchnat_id,strbrandname,formattedDate;
     ImageView app_logo;
+    String which_upi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +94,7 @@ public class UPG extends AppCompatActivity {
         phonepe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                which_upi= "PHONEPE";
                 payUsingPhonepeUpi(strbrandname, strUpiId, strNotes, strAmount,strCurrency);
 
             }
@@ -101,6 +103,7 @@ public class UPG extends AppCompatActivity {
         gpay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                which_upi= "GPAY";
                 payUsingUpi(strbrandname, strUpiId, strNotes, strAmount,strCurrency);
 
             }
@@ -109,6 +112,7 @@ public class UPG extends AppCompatActivity {
         paytm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                which_upi= "PAYTM";
                 // Create an Intent with the ACTION_VIEW action and the Paytm URI
                 Uri paytmUri = Uri.parse("upi://pay")
                         .buildUpon()
@@ -137,6 +141,7 @@ public class UPG extends AppCompatActivity {
         otherupi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                which_upi= "OTHER UPI";
                 payUsingOtherUpi(strbrandname, strUpiId, strNotes, strAmount,strCurrency);
 
             }
@@ -145,6 +150,10 @@ public class UPG extends AppCompatActivity {
     }
 
     void payUsingUpi(String name, String upiId, String note, String amount,String strCurrency) {
+        paytm.setFocusable(false);
+        gpay.setFocusable(false);
+        phonepe.setFocusable(false);
+        otherupi.setFocusable(false);
         Uri uri = Uri.parse("upi://pay").buildUpon()
                 .appendQueryParameter("pa", upiId)
                 .appendQueryParameter("pn", name)
@@ -167,6 +176,10 @@ public class UPG extends AppCompatActivity {
     }
 
     void payUsingPhonepeUpi(String name, String upiId, String note, String amount,String strCurrency) {
+        paytm.setFocusable(false);
+        gpay.setFocusable(false);
+        phonepe.setFocusable(false);
+        otherupi.setFocusable(false);
         Uri uri = Uri.parse("upi://pay").buildUpon()
                 .appendQueryParameter("pa", upiId)
                 .appendQueryParameter("pn", name)
@@ -187,6 +200,10 @@ public class UPG extends AppCompatActivity {
     }
 
     void payUsingOtherUpi(String name, String upiId, String note, String amount,String strCurrency) {
+        paytm.setFocusable(false);
+        gpay.setFocusable(false);
+        phonepe.setFocusable(false);
+        otherupi.setFocusable(false);
         Uri uri = Uri.parse("upi://pay").buildUpon()
                 .appendQueryParameter("pa", upiId)
                 .appendQueryParameter("pn", name)
@@ -413,6 +430,7 @@ public class UPG extends AppCompatActivity {
         PG_REQ.setMerchantUserName(str_m_n);
         PG_REQ.setMerchantTransactionStatus(MerchantTransactionStatus);
         PG_REQ.setResponse(StrResponse);
+        PG_REQ.setProvider(which_upi);
         //set data req
 
         AI aint= AC.PB().create(AI.class);
