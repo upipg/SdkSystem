@@ -124,22 +124,20 @@ public class UPG  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 which_upi = "PAYTM";
-                // Create an Intent with the ACTION_VIEW action and the Paytm URI
                 Uri paytmUri = Uri.parse("upi://pay")
                         .buildUpon()
-                        .appendQueryParameter("pa", strUpiId.trim()) // Payee VPA (Virtual Payment Address)
-                        .appendQueryParameter("pn", strbrandname.trim()) // Payee name
-                        .appendQueryParameter("mc", "000000") // Merchant code (optional)
-                        .appendQueryParameter("tr", oid) // Transaction ID
-                        .appendQueryParameter("tn", strNotes.trim()) // Transaction note
-                        .appendQueryParameter("am", strAmount.trim()) // Transaction amount
-                        .appendQueryParameter("mode", "04".trim()) // Payment mode (optional)
-                        .appendQueryParameter("tid", strTransactionId) // Terminal ID (optional)
+                        .appendQueryParameter("pa", strUpiId.trim())
+                        .appendQueryParameter("pn", strbrandname.trim())
+                        .appendQueryParameter("mc", "000000")
+                        .appendQueryParameter("tr", oid)
+                        .appendQueryParameter("tn", strNotes.trim())
+                        .appendQueryParameter("am", strAmount.trim())
+                        .appendQueryParameter("mode", "04".trim())
+                        .appendQueryParameter("tid", strTransactionId)
                         .build();
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(paytmUri);
                 intent.setPackage("net.one97.paytm");
-                // Check if the user has the Paytm app installed
                 try {
                     startActivityForResult(intent, REQUEST_CODE_PAYTM);
                 } catch (Exception e) {
@@ -231,7 +229,7 @@ public class UPG  extends AppCompatActivity {
             Toast.makeText(this, "No UPI app Found", Toast.LENGTH_SHORT).show();
         }
     }
-    //charges
+
 
 
     @Override
@@ -347,7 +345,6 @@ public class UPG  extends AppCompatActivity {
                         String status = data.getStringExtra("Status");
                         String responseMessage = bundle.getString("response");
 
-                        // Check if status is not null before calling trim()
                         if (status != null) {
                             status = status.trim();
                         }
@@ -380,13 +377,9 @@ public class UPG  extends AppCompatActivity {
     }
 
     private void collectData(TransactionResult transactionResult) {
-        // Add your data collection logic here
 
         String responseString = "txnId=&responseCode=00&ApprovalRefNo=332530&Status=SUCCESS&txnRef=";
-/*
-        String responseString = "?txnId=null&responseCode=null&Status=null&txnRef=null";
-*/
-        //cred
+
 
 
         String[] keyValuePairs = responseString.split("&");
@@ -448,7 +441,6 @@ public class UPG  extends AppCompatActivity {
         PG_REQ.setMerchantTransactionStatus(MerchantTransactionStatus);
         PG_REQ.setResponse(StrResponse);
         PG_REQ.setProvider(which_upi);
-        //set data req
 
         AI aint = AC.PB().create(AI.class);
         Call<PG_Response_RES> apicall = aint.Transaction_response(PG_REQ);
@@ -502,7 +494,6 @@ public class UPG  extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PG_Response_RES> call, Throwable t) {
-                // Toast.makeText(UpiPgActivity.this, "onFailure.....", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -110,7 +110,6 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
 
 
 
-        // Check for location permissions at runtime (if not granted)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkLocationPermission()) {
                 getLocation();
@@ -121,14 +120,11 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
             getLocation();
         }
 
-        // Get IP address
         ipAddress = getIPAddress();
         Date currentDate = new Date();
 
-        // Define the desired date format
         SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
 
-        // Format the current date as a string in the desired format
         formattedDate = dateFormatter.format(currentDate);
 
 
@@ -153,13 +149,11 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
 
     }
 
-    // Check location permission at runtime (for Android 6.0 and above)
     @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean checkLocationPermission() {
         return ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
-    // Request location permission callback
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -167,13 +161,11 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getLocation();
             } else {
-                // Handle permission denied
                 finish();
             }
         }
     }
 
-    // Get current location
     private void getLocation() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (locationManager != null) {
@@ -191,7 +183,6 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
         }
     }
 
-    // Get device IP address
 
     private String getIPAddress() {
         try {
@@ -228,7 +219,6 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
         Collect_REQ.setMerchantUserName(str_m_n);
         Collect_REQ.setMobileNumber(edit_m.getText().toString());
 
-        //set data req
 
         AI aint= AC.PB().create(AI.class);
         Call<PG_Collect_RES> apicall= aint.USER_DATA(Collect_REQ);
@@ -298,8 +288,6 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
 
                 go.setVisibility(View.VISIBLE);
                 progress.setVisibility(View.GONE);
-                //   Toast.makeText(M_pinLoginCheck.this, "Failed to make the API call: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                // Log.e("API_CALL_FAILURE", "Failed to make the API call: " + t.getMessage());
             }
         });
     }
@@ -321,7 +309,6 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
                         String status = data.getStringExtra("Status");
                         String responseMessage = bundle.getString("response");
 
-                        // Check if status is not null before calling trim()
                         if (status != null) {
                             status = status.trim();
                         }
@@ -355,13 +342,9 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
 
 
     private void collectData(TransactionResult transactionResult) {
-        // Add your data collection logic here
 
         String responseString = "txnId=&responseCode=00&ApprovalRefNo=332530&Status=SUCCESS&txnRef=";
-/*
-        String responseString = "?txnId=null&responseCode=null&Status=null&txnRef=null";
-*/
-        //cred
+
 
 
         String[] keyValuePairs = responseString.split("&");
@@ -423,7 +406,6 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
         PG_REQ.setMerchantTransactionStatus(MerchantTransactionStatus);
         PG_REQ.setResponse(StrResponse);
         PG_REQ.setProvider("OTHER INTENT");
-        //set data req
 
         AI aint = AC.PB().create(AI.class);
         Call<PG_Response_RES> apicall = aint.Transaction_response(PG_REQ);
@@ -477,7 +459,6 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PG_Response_RES> call, Throwable t) {
-                // Toast.makeText(UpiPgActivity.this, "onFailure.....", Toast.LENGTH_SHORT).show();
             }
         });
     }
