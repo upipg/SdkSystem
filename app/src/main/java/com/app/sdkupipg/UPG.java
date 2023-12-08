@@ -1,16 +1,21 @@
 package com.app.sdkupipg;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.app.sdkupipg.Models.AMR;
+import com.app.sdkupipg.Models.AMRP;
 import com.app.sdkupipg.Models.PG_Response_REQ;
 import com.app.sdkupipg.Models.PG_Response_RES;
 import com.google.gson.Gson;
@@ -19,14 +24,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UPG extends AppCompatActivity {
-    String oid,strmo;
+public class UPG  extends AppCompatActivity {
+    String oid, strmo, strpv;
+    ProgressBar progress;
     private final Gson gson = new Gson();
     private SuccessHandler successHandler;
     private SuccessHandler failureHandler;
@@ -37,29 +44,31 @@ public class UPG extends AppCompatActivity {
     private static final int REQUEST_CODE_GOOGLE_PAY = 1001;
     private static final int REQUEST_CODE_UPI_PAYMENT = 0;
     LinearLayout PGLayout;
-    TextView ip_add,m_n,brand_name,time;
-    LinearLayout creditCardLayout,debitCardLayout,netbanking,phonepe,gpay,paytm,otherupi;
-    String strm_s,strm_r_id,strAmount,strUpiId,strTransactionId,strNotes,strCurrency,str_m_n,strmerchnat_id,strbrandname,formattedDate;
+    TextView ip_add, m_n, brand_name, time;
+    LinearLayout creditCardLayout, debitCardLayout, netbanking, phonepe, gpay, paytm, otherupi;
+    String strm_s, strm_r_id, strAmount, strUpiId, strTransactionId, strNotes, strCurrency, str_m_n, strmerchnat_id, strbrandname, formattedDate;
     ImageView app_logo;
     String which_upi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        creditCardLayout=findViewById(R.id.creditCardLayout);
-        debitCardLayout=findViewById(R.id.debitCardLayout);
-        netbanking=findViewById(R.id.netbanking);
-        phonepe=findViewById(R.id.phonepe);
-        gpay=findViewById(R.id.gpay);
-        PGLayout=findViewById(R.id.PGLayout);
-        paytm=findViewById(R.id.paytm);
-        otherupi=findViewById(R.id.otherupi);
-        app_logo=findViewById(R.id.app_logo);
+        creditCardLayout = findViewById(R.id.creditCardLayout);
+        debitCardLayout = findViewById(R.id.debitCardLayout);
+        netbanking = findViewById(R.id.netbanking);
+        phonepe = findViewById(R.id.phonepe);
+        gpay = findViewById(R.id.gpay);
+        PGLayout = findViewById(R.id.PGLayout);
+        paytm = findViewById(R.id.paytm);
+        otherupi = findViewById(R.id.otherupi);
+        app_logo = findViewById(R.id.app_logo);
         ip_add = findViewById(R.id.ipaddress);
         time = findViewById(R.id.time);
         brand_name = findViewById(R.id.brand_name);
         m_n = findViewById(R.id.merchant_name);
+        progress = findViewById(R.id.progress);
 
         Intent i = getIntent();
         strAmount = i.getExtras().getString("trAm");
@@ -71,6 +80,8 @@ public class UPG extends AppCompatActivity {
         str_m_n = i.getExtras().getString("merchant_name");
         strmerchnat_id = i.getExtras().getString("merchant_id");
         strmo = i.getExtras().getString("mobile");
+
+        Data_ON_OFF(strmerchnat_id);
 
         if (i.getExtras().getString("merchant_ref_id") != null) {
             strm_r_id = i.getExtras().getString("merchant_ref_id");
@@ -84,18 +95,18 @@ public class UPG extends AppCompatActivity {
 
 
 
-        ip_add.setText("IP Address : "+i.getExtras().getString("ip_address"));
+        ip_add.setText("IP Address : " + i.getExtras().getString("ip_address"));
 
-        time.setText("Accesss Time : "+ i.getExtras().getString("date_time"));
-        brand_name.setText("Brand Name : "+ i.getExtras().getString("BRname"));
+        time.setText("Accesss Time : " + i.getExtras().getString("date_time"));
+        brand_name.setText("Brand Name : " + i.getExtras().getString("BRname"));
         m_n.setText(i.getExtras().getString("merchant_name"));
 
 
         phonepe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                which_upi= "PHONEPE";
-                payUsingPhonepeUpi(strbrandname, strUpiId, strNotes, strAmount,strCurrency);
+                which_upi = "PHONEPE";
+                payUsingPhonepeUpi(strbrandname, strUpiId, strNotes, strAmount, strCurrency);
 
             }
         });
@@ -103,8 +114,8 @@ public class UPG extends AppCompatActivity {
         gpay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                which_upi= "GPAY";
-                payUsingUpi(strbrandname, strUpiId, strNotes, strAmount,strCurrency);
+                which_upi = "GPAY";
+                payUsingUpi(strbrandname, strUpiId, strNotes, strAmount, strCurrency);
 
             }
         });
@@ -112,7 +123,7 @@ public class UPG extends AppCompatActivity {
         paytm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                which_upi= "PAYTM";
+                which_upi = "PAYTM";
                 // Create an Intent with the ACTION_VIEW action and the Paytm URI
                 Uri paytmUri = Uri.parse("upi://pay")
                         .buildUpon()
@@ -141,15 +152,15 @@ public class UPG extends AppCompatActivity {
         otherupi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                which_upi= "OTHER UPI";
-                payUsingOtherUpi(strbrandname, strUpiId, strNotes, strAmount,strCurrency);
+                which_upi = "OTHER UPI";
+                payUsingOtherUpi(strbrandname, strUpiId, strNotes, strAmount, strCurrency);
 
             }
         });
 
     }
 
-    void payUsingUpi(String name, String upiId, String note, String amount,String strCurrency) {
+    void payUsingUpi(String name, String upiId, String note, String amount, String strCurrency) {
         paytm.setFocusable(true);
         gpay.setFocusable(true);
         phonepe.setFocusable(true);
@@ -175,7 +186,7 @@ public class UPG extends AppCompatActivity {
 
     }
 
-    void payUsingPhonepeUpi(String name, String upiId, String note, String amount,String strCurrency) {
+    void payUsingPhonepeUpi(String name, String upiId, String note, String amount, String strCurrency) {
         paytm.setFocusable(true);
         gpay.setFocusable(true);
         phonepe.setFocusable(true);
@@ -199,7 +210,7 @@ public class UPG extends AppCompatActivity {
         }
     }
 
-    void payUsingOtherUpi(String name, String upiId, String note, String amount,String strCurrency) {
+    void payUsingOtherUpi(String name, String upiId, String note, String amount, String strCurrency) {
         paytm.setFocusable(true);
         gpay.setFocusable(true);
         phonepe.setFocusable(true);
@@ -372,6 +383,12 @@ public class UPG extends AppCompatActivity {
         // Add your data collection logic here
 
         String responseString = "txnId=&responseCode=00&ApprovalRefNo=332530&Status=SUCCESS&txnRef=";
+/*
+        String responseString = "?txnId=null&responseCode=null&Status=null&txnRef=null";
+*/
+        //cred
+
+
         String[] keyValuePairs = responseString.split("&");
 
         Map<String, String> responseMap = new HashMap<>();
@@ -421,9 +438,9 @@ public class UPG extends AppCompatActivity {
     }
 
 
-    private void Response(String MerchantTransactionStatus,String StrResponse){
+    private void Response(String MerchantTransactionStatus, String StrResponse) {
 
-        PG_Response_REQ PG_REQ= new PG_Response_REQ();
+        PG_Response_REQ PG_REQ = new PG_Response_REQ();
         PG_REQ.setMerchantId(strmerchnat_id);
         PG_REQ.setMerchantRefId(strTransactionId);
         PG_REQ.setMerchantSecret(strm_s);
@@ -433,43 +450,43 @@ public class UPG extends AppCompatActivity {
         PG_REQ.setProvider(which_upi);
         //set data req
 
-        AI aint= AC.PB().create(AI.class);
-        Call<PG_Response_RES> apicall= aint.Transaction_response(PG_REQ);
+        AI aint = AC.PB().create(AI.class);
+        Call<PG_Response_RES> apicall = aint.Transaction_response(PG_REQ);
         apicall.enqueue(new Callback<PG_Response_RES>() {
             @Override
             public void onResponse(Call<PG_Response_RES> call, Response<PG_Response_RES> response) {
 
                 try {
-
+                    progress.setVisibility(View.GONE);
 
                     if (response.body().getStatus().equals("00")) {
 
 
-                            if (response.body().getResponse().getStatus().equals("Success")||response.body().getResponse().getStatus().equals("SUCCESS")){
+                        if (response.body().getResponse().getStatus().equals("Success") || response.body().getResponse().getStatus().equals("SUCCESS")) {
 
-                                Intent i = new Intent(UPG.this, CT.class);
-                                i.putExtra("txnid", response.body().getResponse().getTxnId());
-                                i.putExtra("ref_t_id", response.body().getResponse().getApprovalRefNo());
-                                i.putExtra("flag", 1);
-                                i.putExtra("trAm", strAmount);
-                                i.putExtra("merchant_name", str_m_n);
-                                i.putExtra("BRname", strbrandname);
-                                i.putExtra("mobile", strmo);
-                                startActivity(i);
-                                finish();
-                            }else{
+                            Intent i = new Intent(UPG.this, CT.class);
+                            i.putExtra("txnid", response.body().getResponse().getTxnId());
+                            i.putExtra("ref_t_id", response.body().getResponse().getApprovalRefNo());
+                            i.putExtra("flag", 1);
+                            i.putExtra("trAm", strAmount);
+                            i.putExtra("merchant_name", str_m_n);
+                            i.putExtra("BRname", strbrandname);
+                            i.putExtra("mobile", strmo);
+                            startActivity(i);
+                            finish();
+                        } else {
 
-                                Intent i = new Intent(UPG.this, CT.class);
-                                i.putExtra("txnid", response.body().getResponse().getTxnId());
-                                i.putExtra("flag", 2);
-                                i.putExtra("ref_t_id", response.body().getResponse().getApprovalRefNo());
-                                i.putExtra("trAm", strAmount);
-                                i.putExtra("merchant_name", str_m_n);
-                                i.putExtra("BRname", strbrandname);
-                                i.putExtra("mobile", strmo);
-                                startActivity(i);
-                                finish();
-                            }
+                            Intent i = new Intent(UPG.this, CT.class);
+                            i.putExtra("txnid", response.body().getResponse().getTxnId());
+                            i.putExtra("flag", 2);
+                            i.putExtra("ref_t_id", response.body().getResponse().getApprovalRefNo());
+                            i.putExtra("trAm", strAmount);
+                            i.putExtra("merchant_name", str_m_n);
+                            i.putExtra("BRname", strbrandname);
+                            i.putExtra("mobile", strmo);
+                            startActivity(i);
+                            finish();
+                        }
 
 
                     } else {
@@ -477,7 +494,7 @@ public class UPG extends AppCompatActivity {
 
                     }
 
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
 
@@ -485,9 +502,94 @@ public class UPG extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PG_Response_RES> call, Throwable t) {
-               // Toast.makeText(UpiPgActivity.this, "onFailure.....", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(UpiPgActivity.this, "onFailure.....", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
+    public void Data_ON_OFF(String strmerchnat_id) {
+        AMR s1 = new AMR();
+
+        SharedPreferences prefs = UPG.this.getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+        s1.setMerchantId(strmerchnat_id);
+
+        AI apiInterface = AC.PB().create(AI.class);
+        Call<AMRP> apiResponseCall = apiInterface.N_F_S(s1);
+        apiResponseCall.enqueue(new Callback<AMRP>() {
+            @Override
+            public void onResponse(Call<AMRP> call, Response<AMRP> response) {
+                try {
+                    if (response.isSuccessful() && response.body() != null) {
+                        AMRP responseBody = response.body();
+                        List<? extends AMRP.Data> services = responseBody.getData();
+
+                        for (AMRP.Data service : services) {
+                            String pkMenuId = service.getPk_app_id();
+                            String status = service.getApp_status();
+                            progress.setVisibility(View.GONE);
+                            switch (pkMenuId) {
+
+                                case "4":
+                                    if (status.equals("Y")) {
+                                        paytm.setVisibility(View.VISIBLE);
+
+                                    } else {
+                                        paytm.setVisibility(View.GONE);
+
+                                    }
+                                    break;
+
+                                case "3":
+                                    if (status.equals("Y")) {
+                                        phonepe.setVisibility(View.VISIBLE);
+                                    } else {
+                                        phonepe.setVisibility(View.GONE);
+                                    }
+                                    break;
+
+                                case "1":
+                                    if (status.equals("Y")) {
+                                        gpay.setVisibility(View.VISIBLE);
+
+                                    } else if (status.equals("N")) {
+                                        gpay.setVisibility(View.GONE);
+
+                                    }
+                                    break;
+
+
+                                case "5":
+                                    if (status.equals("Y")) {
+                                        otherupi.setVisibility(View.VISIBLE);
+
+                                    } else if (status.equals("N")) {
+                                        otherupi.setVisibility(View.GONE);
+                                    }
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                        }
+                    } else {
+                        progress.setVisibility(View.GONE);
+                        Toast.makeText(UPG.this, "Response is not successful", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    progress.setVisibility(View.GONE);
+                    Toast.makeText(UPG.this, "Please try again later", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AMRP> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+                Toast.makeText(UPG.this, "Please Try again later.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
 }

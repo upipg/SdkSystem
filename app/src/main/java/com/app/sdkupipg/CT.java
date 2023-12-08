@@ -60,14 +60,14 @@ public class CT extends AppCompatActivity {
         strmobile= i.getExtras().getString("mobile");
 
         if (flag==1){
-    response.setText("Payment Success");
-    correct.setVisibility(View.VISIBLE);
-    wrong.setVisibility(View.GONE);
-}else{
-    response.setText("Payment Failed");
-    correct.setVisibility(View.GONE);
-    wrong.setVisibility(View.VISIBLE);
-}
+            response.setText("Payment Success");
+            correct.setVisibility(View.VISIBLE);
+            wrong.setVisibility(View.GONE);
+        }else{
+            response.setText("Payment Failed");
+            correct.setVisibility(View.GONE);
+            wrong.setVisibility(View.VISIBLE);
+        }
 
         mobile.setText(strmobile);
         brand_name.setText(strbrandname);

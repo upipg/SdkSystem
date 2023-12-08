@@ -6,6 +6,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
 
     <TextView
         android:layout_width="match_parent"
@@ -14,26 +28,13 @@
         android:textStyle="bold"
         android:background="@drawable/gradiant"
         android:textColor="@color/white"
-        android:layout_marginTop="20dp"
         android:textSize="30dp"
         android:layout_gravity="center"
         android:gravity="center"/>
 
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Varshant Atary"
-        android:textStyle="bold"
-        android:background="#E8ECF4"
-        android:id="@+id/merchant_name"
-        android:textSize="30dp"
-        android:textColor="@color/grey"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="center"
-        android:gravity="center"/>
+
 
 
     <androidx.cardview.widget.CardView
@@ -49,18 +50,70 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#E8ECF4"
-            android:gravity="left|center"
+            android:gravity="center"
             android:inputType="textEmailAddress"
             android:hint="Brand Name"
             android:id="@+id/brand_name"
+            android:layout_gravity="center"
             android:textStyle="bold"
+            android:layout_weight="1"
+            android:padding="15dp"
+            android:textColor="@color/grey"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="18sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2"
+
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E8ECF4"
+            android:gravity="left|center"
+android:autoText="false"
+            android:inputType="textEmailAddress"
+            android:hint="User Name"
             android:layout_weight="1"
             android:padding="15dp"
             android:textColor="@color/grey"
             android:textColorHint="@color/grey_dark"
             android:textSize="16sp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="left|center"
+            android:textStyle="bold"
+            android:inputType="textEmailAddress"
+            android:autoText="false"
+
+            android:hint="Varshant Atray"
+            android:id="@+id/merchant_name"
+            android:layout_weight="1"
+            android:padding="15dp"
+            android:textColor="@color/grey"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="16sp" />
+
+    </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -154,6 +207,7 @@ android:autoText="false"
             android:hint="Enter Mobile Number"
             android:padding="15dp"
      android:inputType="number"
+     android:textStyle="bold"
      android:maxLength="10"
             android:textColor="@color/Black"
             android:textColorHint="@color/grey_dark"
@@ -169,9 +223,10 @@ android:autoText="false"
 
         android:text="Note : \n\nWe collect limited information to enhance your experience. by continuing you agree to our data collection policy."
         android:padding="15dp"
-        android:textColor="@color/grey"
+        android:textColor="@color/icon1"
         android:textColorHint="@color/grey_dark"
         android:textSize="16sp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -180,7 +235,7 @@ android:autoText="false"
         android:gravity="center"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:padding="12dp"
+        android:padding="16dp"
         android:backgroundTint="@color/icon4"
         android:background="@drawable/round_outline2"
         android:id="@+id/proceed"
@@ -200,5 +255,26 @@ android:autoText="false"
         android:textSize="18sp"
         android:layout_margin="10dp"/>
 
+
+    </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom|center"
+    android:layout_gravity="center|bottom">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom|center"
+        android:textStyle="bold"
+android:layout_gravity="center|bottom"
+        android:text="\n\nExperience peace of mind with our advanced security measures, including encryption, two-factor authentication, and real-time fraud monitoring, ensuring the utmost protection for every transaction you make."
+        android:padding="15dp"
+        android:textColor="@color/icon1"
+        android:textColorHint="@color/grey_dark"
+        android:textSize="16sp" />
+</RelativeLayout>
 
     </LinearLayout>

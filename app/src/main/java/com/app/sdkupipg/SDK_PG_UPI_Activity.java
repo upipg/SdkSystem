@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +28,12 @@ import androidx.core.content.ContextCompat;
 
 import com.app.sdkupipg.Models.PG_Collect_REQUEST;
 import com.app.sdkupipg.Models.PG_Collect_RES;
+import com.app.sdkupipg.Models.PG_Response_REQ;
+import com.app.sdkupipg.Models.PG_Response_RES;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -34,7 +41,9 @@ import java.net.SocketException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +54,8 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
     double latitude;
     double longitude;
     float pecentge = 18;
+    private static final int REQUEST_CODE_UPI_PAYMENT = 0;
+
 
     String ipAddress, deviceId;
 
@@ -52,6 +63,12 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
     TextView b_n,merchant_name,txtUserAmount;
     EditText edit_m;
     TextView go;
+    private final Gson gson = new Gson();
+
+    private UPG.SuccessHandler successHandler;
+    private UPG.SuccessHandler failureHandler;
+    private String FAILURE = "FAILURE";
+
     ProgressBar progress;
     String str_m_s,str_m_r_i_d,stramt,struid,str_t_i_d,strNotes,strCurrency,str_m_n,str_m_i_d,str_b_n,formattedDate;
     ImageView app_logo;
@@ -105,16 +122,16 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
         }
 
         // Get IP address
-         ipAddress = getIPAddress();
+        ipAddress = getIPAddress();
         Date currentDate = new Date();
 
         // Define the desired date format
         SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
 
         // Format the current date as a string in the desired format
-         formattedDate = dateFormatter.format(currentDate);
+        formattedDate = dateFormatter.format(currentDate);
 
-         
+
 
 
         go.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +168,7 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
                 getLocation();
             } else {
                 // Handle permission denied
-finish();
+                finish();
             }
         }
     }
@@ -164,11 +181,11 @@ finish();
                     && ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 if (location != null) {
-                     latitude = location.getLatitude();
-                     longitude = location.getLongitude();
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
 
                 } else {
-finish();
+                    finish();
                 }
             }
         }
@@ -195,7 +212,7 @@ finish();
         return "Unknown";
     }
 
-    
+
     private void PGC(){
         SharedPreferences prefs = SDK_PG_UPI_Activity.this.getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
 
@@ -211,7 +228,7 @@ finish();
         Collect_REQ.setMerchantUserName(str_m_n);
         Collect_REQ.setMobileNumber(edit_m.getText().toString());
 
-      //set data req
+        //set data req
 
         AI aint= AC.PB().create(AI.class);
         Call<PG_Collect_RES> apicall= aint.USER_DATA(Collect_REQ);
@@ -224,48 +241,42 @@ finish();
 
                     if (response.body().getStatus().equals("00")) {
 
-                        go.setVisibility(View.VISIBLE);
-                        progress.setVisibility(View.GONE);
-                        if (response.body().getData().getUpiid().equals(struid)){
+                        String data= response.body().getData().getUpiid();
+                        if (response.body().getData().getPipe().equals("P1")) {
 
                             Intent i = new Intent(SDK_PG_UPI_Activity.this, UPG.class);
-                            i.putExtra("trAm",stramt);
-                            i.putExtra("trUpiId",struid);
-                            i.putExtra("trId",str_t_i_d);
-                            i.putExtra("trNotes",strNotes);
-                            i.putExtra("trcur",strCurrency);
-                            i.putExtra("trOrId",strorderid);
-                            i.putExtra("BRname",str_b_n);
-                            i.putExtra("merchant_name",str_m_n);
-                            i.putExtra("merchant_id",str_m_i_d);
-                            i.putExtra("merchant_secret",str_m_s);
-                            i.putExtra("merchnat_ref_id",str_t_i_d);
-                            i.putExtra("mobile",edit_m.getText().toString());
-                            i.putExtra("ip_address",ipAddress);
-                            i.putExtra("date_time",formattedDate);
+                            i.putExtra("trAm", stramt);
+                            i.putExtra("trUpiId", data);
+                            i.putExtra("trId", str_t_i_d);
+                            i.putExtra("trNotes", strNotes);
+                            i.putExtra("trcur", strCurrency);
+                            i.putExtra("trOrId", strorderid);
+                            i.putExtra("BRname", str_b_n);
+                            i.putExtra("merchant_name", str_m_n);
+                            i.putExtra("merchant_id", str_m_i_d);
+                            i.putExtra("merchant_secret", str_m_s);
+                            i.putExtra("merchnat_ref_id", str_t_i_d);
+                            i.putExtra("mobile", edit_m.getText().toString());
+                            i.putExtra("ip_address", ipAddress);
+                            i.putExtra("date_time", formattedDate);
                             startActivity(i);
                             finish();
-                        }else{
-                            Intent i = new Intent(SDK_PG_UPI_Activity.this, UPG.class);
-                            i.putExtra("trAm",stramt);
-                            i.putExtra("trUpiId",response.body().getData().getUpiid());
-                            i.putExtra("trId",str_t_i_d);
-                            i.putExtra("trNotes",strNotes);
-                            i.putExtra("trcur",strCurrency);
-                            i.putExtra("trOrId",strorderid);
-                            i.putExtra("BRname",str_b_n);
-                            i.putExtra("merchant_name",str_m_n);
-                            i.putExtra("merchant_id",str_m_i_d);
-                            i.putExtra("merchant_secret",str_m_s);
-                            i.putExtra("merchnat_ref_id",str_t_i_d);
-                            i.putExtra("mobile",edit_m.getText().toString());
-                            i.putExtra("ip_address",ipAddress);
-                            i.putExtra("date_time",formattedDate);
-                            startActivity(i);
-                            finish();
+
                         }
 
+                        if (response.body().getData().getPipe().equals("P2")){
 
+                            String originalString = "upi://pay?"+response.body().getData().getUpiIntent().toString();
+                            Intent upiPayIntent = new Intent(Intent.ACTION_VIEW);
+                            upiPayIntent.setData(Uri.parse(originalString));
+                            Intent chooser = Intent.createChooser(upiPayIntent, "Pay with");
+                            if (null != chooser.resolveActivity(getPackageManager())) {
+                                startActivityForResult(chooser, REQUEST_CODE_UPI_PAYMENT);
+                            } else {
+                                Toast.makeText(SDK_PG_UPI_Activity.this, "No UPI APP Found", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
                     } else {
 
                         go.setVisibility(View.VISIBLE);
@@ -284,6 +295,9 @@ finish();
             @Override
             public void onFailure(Call<PG_Collect_RES> call, Throwable t) {
                 Toast.makeText(SDK_PG_UPI_Activity.this, "onFailure.....", Toast.LENGTH_SHORT).show();
+
+                go.setVisibility(View.VISIBLE);
+                progress.setVisibility(View.GONE);
                 //   Toast.makeText(M_pinLoginCheck.this, "Failed to make the API call: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 // Log.e("API_CALL_FAILURE", "Failed to make the API call: " + t.getMessage());
             }
@@ -292,5 +306,180 @@ finish();
 
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        final JSONObject responseData = new JSONObject();
+
+
+        try {
+            if (requestCode == REQUEST_CODE_UPI_PAYMENT) {
+                if (data != null && data.getExtras() != null) {
+                    Bundle bundle = data.getExtras();
+                    if (bundle != null) {
+                        String status = data.getStringExtra("Status");
+                        String responseMessage = bundle.getString("response");
+
+                        // Check if status is not null before calling trim()
+                        if (status != null) {
+                            status = status.trim();
+                        }
+
+                        responseData.put("status", status);
+                        responseData.put("message", responseMessage);
+
+                        TransactionResult transactionResult = new TransactionResult(status, responseMessage);
+
+                        if ("SUCCESS".equals(status)) {
+                            collectData(transactionResult);
+                        } else {
+                            collectData(transactionResult);
+                        }
+                    }
+                }
+            } else {
+                responseData.put("message", "Request Code Mismatch");
+                responseData.put("status", FAILURE);
+                if (failureHandler != null) {
+                    failureHandler.invoke(gson.toJson(responseData));
+
+
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    private void collectData(TransactionResult transactionResult) {
+        // Add your data collection logic here
+
+        String responseString = "txnId=&responseCode=00&ApprovalRefNo=332530&Status=SUCCESS&txnRef=";
+/*
+        String responseString = "?txnId=null&responseCode=null&Status=null&txnRef=null";
+*/
+        //cred
+
+
+        String[] keyValuePairs = responseString.split("&");
+
+        Map<String, String> responseMap = new HashMap<>();
+
+        for (String pair : keyValuePairs) {
+            String[] entry = pair.split("=");
+            if (entry.length == 2) {
+                responseMap.put(entry[0], entry[1]);
+            }
+        }
+
+        String responseCode = responseMap.get("responseCode");
+        String approvalRefNo = responseMap.get("ApprovalRefNo");
+        String status1 = responseMap.get("Status");
+        String txnId = responseMap.get("txnId");
+        String txnRef = responseMap.get("txnRef");
+
+
+        if (transactionResult.getStatus() == null || transactionResult.getStatus().isEmpty()) {
+            Response(status1, transactionResult.getMessage());
+        } else {
+            Response(transactionResult.getStatus(), transactionResult.getMessage());
+        }
+
+    }
+
+    public interface SuccessHandler {
+        void invoke(String jsonData);
+    }
+
+    private static class TransactionResult {
+        private String status;
+        private String message;
+
+        public TransactionResult(String status, String message) {
+            this.status = status;
+            this.message = message;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+    }
+
+
+    private void Response(String MerchantTransactionStatus, String StrResponse) {
+
+        PG_Response_REQ PG_REQ = new PG_Response_REQ();
+        PG_REQ.setMerchantId(str_m_i_d);
+        PG_REQ.setMerchantRefId(str_t_i_d);
+        PG_REQ.setMerchantSecret(str_m_s);
+        PG_REQ.setMerchantUserName(str_m_n);
+        PG_REQ.setMerchantTransactionStatus(MerchantTransactionStatus);
+        PG_REQ.setResponse(StrResponse);
+        PG_REQ.setProvider("OTHER INTENT");
+        //set data req
+
+        AI aint = AC.PB().create(AI.class);
+        Call<PG_Response_RES> apicall = aint.Transaction_response(PG_REQ);
+        apicall.enqueue(new Callback<PG_Response_RES>() {
+            @Override
+            public void onResponse(Call<PG_Response_RES> call, Response<PG_Response_RES> response) {
+
+                try {
+
+
+                    if (response.body().getStatus().equals("00")) {
+
+
+                        if (response.body().getResponse().getStatus().equals("Success") || response.body().getResponse().getStatus().equals("SUCCESS")) {
+
+                            Intent i = new Intent(SDK_PG_UPI_Activity.this, CT.class);
+                            i.putExtra("txnid", response.body().getResponse().getTxnId());
+                            i.putExtra("ref_t_id", response.body().getResponse().getApprovalRefNo());
+                            i.putExtra("flag", 1);
+                            i.putExtra("trAm", stramt);
+                            i.putExtra("merchant_name", str_m_n);
+                            i.putExtra("BRname", str_b_n);
+                            i.putExtra("mobile", str_m_n);
+                            startActivity(i);
+                            finish();
+                        } else {
+
+                            Intent i = new Intent(SDK_PG_UPI_Activity.this, CT.class);
+                            i.putExtra("txnid", response.body().getResponse().getTxnId());
+                            i.putExtra("flag", 2);
+                            i.putExtra("ref_t_id", response.body().getResponse().getApprovalRefNo());
+                            i.putExtra("trAm", stramt);
+                            i.putExtra("merchant_name", str_m_n);
+                            i.putExtra("BRname", str_b_n);
+                            i.putExtra("mobile", str_m_n);
+                            startActivity(i);
+                            finish();
+                        }
+
+
+                    } else {
+
+
+                    }
+
+                } catch (Exception e) {
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<PG_Response_RES> call, Throwable t) {
+                // Toast.makeText(UpiPgActivity.this, "onFailure.....", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 }

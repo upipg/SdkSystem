@@ -44,6 +44,25 @@ public class PG_Collect_RES implements Serializable {
 
         private String tid;
 
+        private String pipe;
+        private String upiIntent;
+
+        public String getPipe() {
+            return pipe;
+        }
+
+        public void setPipe(String pipe) {
+            this.pipe = pipe;
+        }
+
+        public String getUpiIntent() {
+            return upiIntent;
+        }
+
+        public void setUpiIntent(String upiIntent) {
+            this.upiIntent = upiIntent;
+        }
+
         public String getBrandName() {
             return this.brandName;
         }

@@ -188,12 +188,20 @@
 
             </androidx.cardview.widget.CardView>
 
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/progress"/>
+
+
             <!-- UPI Payment Method -->
             <LinearLayout
                 android:id="@+id/paytm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
+                android:visibility="gone"
                 android:layout_margin="10dp"
                 android:orientation="vertical"
                 android:layout_gravity="center"
@@ -235,8 +243,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
+                android:visibility="gone"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+
                 android:orientation="vertical"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -269,6 +279,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
+                android:visibility="gone"
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:orientation="vertical"
@@ -305,6 +316,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
+                android:visibility="gone"
                 android:layout_margin="10dp"
                 android:orientation="vertical"
                 android:layout_gravity="center"
