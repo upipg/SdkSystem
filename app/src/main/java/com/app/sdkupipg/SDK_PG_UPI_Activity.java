@@ -62,7 +62,7 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 1;
     TextView b_n,merchant_name,txtUserAmount;
     EditText edit_m;
-    TextView go;
+    TextView pro,go;
     private final Gson gson = new Gson();
 
     private UPG.SuccessHandler successHandler;
@@ -84,7 +84,8 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
         progress = findViewById(R.id.progress);
 
 
-        go = findViewById(R.id.proceed);
+        go = findViewById(R.id.proced);
+        pro = findViewById(R.id.pro);
 
 
         Intent i = getIntent();
@@ -128,7 +129,9 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
         formattedDate = dateFormatter.format(currentDate);
 
 
+        pro.setOnClickListener(v -> {
 
+        });
 
         go.setOnClickListener(new View.OnClickListener() {
             @Override
