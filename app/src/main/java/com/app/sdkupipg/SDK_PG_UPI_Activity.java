@@ -129,8 +129,23 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
         formattedDate = dateFormatter.format(currentDate);
 
 
-        pro.setOnClickListener(v -> {
-
+        pro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SDK_PG_UPI_Activity.this, SDK_PG_II.class);
+                i.putExtra("trId", "157");//collect from appi response
+                i.putExtra("trAm", "1");// collect from users
+                i.putExtra("trUpiId", "varshant.atray@ybl");//collect from appi response
+                i.putExtra("trNotes", "okokokok");//collect from appi response
+                i.putExtra("trcur", "INR");//collect from appi response
+                i.putExtra("trOrId", "122465589988985563");//collect from appi response
+                i.putExtra("merchant_id", "1001");//provided from bank side
+                i.putExtra("merchant_name", "test@upi123");//provided from bank side
+                i.putExtra("BRname", "Fortuner");//collect from appi response
+                i.putExtra("merchant_ref_id", "23134");//collect from appi response
+                i.putExtra("merchant_secret", "9942f26f04234bdb45091cb7d0ed39b0ae37ac041facf058887a81c49bfb1040");//provided from bank side
+                startActivity(i);
+            }
         });
 
         go.setOnClickListener(new View.OnClickListener() {
