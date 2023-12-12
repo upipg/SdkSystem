@@ -1,4 +1,4 @@
-package com.app.sdkupipg;
+package com.app.sdkupiiii;
 
 import android.content.Intent;
 import android.os.Bundle;

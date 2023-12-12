@@ -1,4 +1,4 @@
-package com.app.sdkupipg;
+package com.app.sdkupiiii;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -26,10 +26,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
-import com.app.sdkupipg.Models.PG_Collect_REQUEST;
-import com.app.sdkupipg.Models.PG_Collect_RES;
-import com.app.sdkupipg.Models.PG_Response_REQ;
-import com.app.sdkupipg.Models.PG_Response_RES;
+import com.app.sdk2.SDK_PG_II;
+import com.app.sdkupiiii.Models.PG_Collect_REQUEST;
+import com.app.sdkupiiii.Models.PG_Collect_RES;
+import com.app.sdkupiiii.Models.PG_Response_REQ;
+import com.app.sdkupiiii.Models.PG_Response_RES;
 import com.google.gson.Gson;
 
 import org.json.JSONException;

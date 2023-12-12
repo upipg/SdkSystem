@@ -1,4 +1,4 @@
-package com.app.sdkupipg;
+package com.app.sdkupiiii;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,10 +13,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.app.sdkupipg.Models.AMR;
-import com.app.sdkupipg.Models.AMRP;
-import com.app.sdkupipg.Models.PG_Response_REQ;
-import com.app.sdkupipg.Models.PG_Response_RES;
+import com.app.sdkupiiii.Models.AMR;
+import com.app.sdkupiiii.Models.AMRP;
+import com.app.sdkupiiii.Models.PG_Response_REQ;
+import com.app.sdkupiiii.Models.PG_Response_RES;
 import com.google.gson.Gson;
 
 import org.json.JSONException;

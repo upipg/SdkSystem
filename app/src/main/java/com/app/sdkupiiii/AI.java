@@ -1,12 +1,12 @@
-package com.app.sdkupipg;
+package com.app.sdkupiiii;
 
 
-import com.app.sdkupipg.Models.AMR;
-import com.app.sdkupipg.Models.AMRP;
-import com.app.sdkupipg.Models.PG_Collect_REQUEST;
-import com.app.sdkupipg.Models.PG_Collect_RES;
-import com.app.sdkupipg.Models.PG_Response_REQ;
-import com.app.sdkupipg.Models.PG_Response_RES;
+import com.app.sdkupiiii.Models.AMR;
+import com.app.sdkupiiii.Models.AMRP;
+import com.app.sdkupiiii.Models.PG_Collect_REQUEST;
+import com.app.sdkupiiii.Models.PG_Collect_RES;
+import com.app.sdkupiiii.Models.PG_Response_REQ;
+import com.app.sdkupiiii.Models.PG_Response_RES;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

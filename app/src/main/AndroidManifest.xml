@@ -34,8 +34,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.app.sdkupipg.UPG" />
-        <activity android:name="com.app.sdkupipg.CT" />
+        <activity android:name="com.app.sdkupiiii.UPG" />
+        <activity android:name="com.app.sdkupiiii.CT" />
     </application>
 
 </manifest>

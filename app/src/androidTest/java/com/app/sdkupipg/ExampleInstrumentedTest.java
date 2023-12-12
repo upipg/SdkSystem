@@ -1,4 +1,4 @@
-package com.app.sdkupipg;
+package com.app.sdkupiiii;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.app.sdkupipg", appContext.getPackageName());
+        assertEquals("com.app.sdkupiiii", appContext.getPackageName());
     }
 }

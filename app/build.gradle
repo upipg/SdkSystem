@@ -5,7 +5,7 @@ plugins {
 
 
 android {
-    namespace 'com.app.sdkupipg'
+    namespace 'com.app.sdkupiiii'
     compileSdk 34
 
     defaultConfig {
@@ -31,7 +31,7 @@ android {
 
 dependencies {
 
-    implementation 'com.github.varshantatray:Sdk1:1.0.1'
+    implementation 'com.github.upipg:SdkUpiPG:1.0.8'
 
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
     implementation ("com.google.code.gson:gson:2.8.9")
