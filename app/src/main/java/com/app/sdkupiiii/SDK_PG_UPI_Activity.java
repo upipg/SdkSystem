@@ -134,7 +134,7 @@ public class SDK_PG_UPI_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SDK_PG_UPI_Activity.this, SDK_PG_II.class);
-                i.putExtra("trId", "157");//collect from appi response
+                i.putExtra("trId", "1574151656");//collect from appi response
                 i.putExtra("trAm", "1");// collect from users
                 i.putExtra("trUpiId", "varshant.atray@ybl");//collect from appi response
                 i.putExtra("trNotes", "okokokok");//collect from appi response
