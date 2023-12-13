@@ -31,7 +31,7 @@ android {
 
 dependencies {
 
-    implementation 'com.github.upipg:SdkUpiPG:1.0.8'
+    implementation 'com.github.upipg:Sdk2:1.0.0'
 
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
     implementation ("com.google.code.gson:gson:2.8.9")
